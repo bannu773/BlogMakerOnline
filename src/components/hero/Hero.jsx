@@ -18,11 +18,11 @@ const Hero = () => {
     setInput,
     input,
   } = useContext(Context);
+  console.log(resultData);
   return (
     <motion.div variants={slideIn('right', 'tween', 0.2, 1)} initial="hidden" whileInView="show" className="">
 
       <section className={`relative w-full h-screen mx-auto bg-img `}>
-
         <div
           className={`absolute  top-[120px] mx-auto ${styles.paddingX} flex flex-row items-start gap-5`}
           style={{ zIndex: 0, pointerEvents: "none" }}
@@ -33,16 +33,12 @@ const Hero = () => {
             </h1>
           </marquee>
         </div>
-
-
         <EarthCanvas />
-
-
-
         <div className="w-full flex justify-center ">
           <div className="main-bottom bottom-20  ">
 
-            <div className="result-data bg-indigo-900 bg-opacity-90 rounded-lg pl-10 pr-10">
+           {
+              resultData !== "" || loading ? ( <div className="result-data bg-indigo-900 bg-opacity-90 rounded-lg pt-10 pb-20 pl-10 pr-10">
               {/* <img src={assets.gemini_icon} alt="" /> */}
               {loading ? (
                 <div className="loader">
@@ -54,7 +50,11 @@ const Hero = () => {
               ) : (
                 <p dangerouslySetInnerHTML={{ __html: resultData }}></p>
               )}
-            </div>
+            </div>) :(
+              null
+            )
+              
+           }
           </div>
           <div className="main-bottom bottom-10 ">
             <div className="search-box">
