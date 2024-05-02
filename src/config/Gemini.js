@@ -13,6 +13,7 @@ const MODEL_NAME = "gemini-1.0-pro";
 const API_KEY = "AIzaSyAsahyXnw17arfV-uIdnzM8AsgnZAC9bF4";
 
 async function runChat(prompt) {
+  
   const genAI = new GoogleGenerativeAI(API_KEY);
   const model = genAI.getGenerativeModel({ model: MODEL_NAME });
 
@@ -27,12 +28,14 @@ async function runChat(prompt) {
     
   ];
 
-  const chat = model.startChat({
-    generationConfig,
-    safetySettings,
-    history: [
-    ],
-  });
+  const chat = model.startChat(
+    // {
+    // generationConfig,
+    // safetySettings,
+    // history: [
+    // ],
+  // }
+  );
 
   const result = await chat.sendMessage(prompt);
   const response = result.response;
