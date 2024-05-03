@@ -11,6 +11,7 @@ const ContextProvider = (props) => {
 	const [loading, setLoading] = useState(false);
 	const [resultData, setResultData] = useState("");
 	const [prompt, setPrompt] = useState("");
+	console.log();
 
 	// const delayPara = (index, nextWord) => {
 	// 	setTimeout(function () {
@@ -22,13 +23,24 @@ const ContextProvider = (props) => {
 		setShowResults(false)
 	}
 
-	const onSent = async () => {
+	const onSent = async (argu) => {
 		setResultData("");
 		setLoading(true);
 		setShowResults(true);
-		console.log(prompt);
+		console.log(argu);
 		let response;
-		if (prompt !== undefined) {
+		if(argu !== "" && argu !== undefined) {
+			console.log(input, "input");
+			response = await runChat(argu);
+			setRecentPrompt(argu);
+			return response;
+		}
+		else if(input !== "" && input !== undefined) {
+			console.log(input, "input");
+			response = await runChat(input);
+			setRecentPrompt(input);
+		}
+		else if (prompt !== undefined) {
 
 			response = await runChat(`Create a Outline for the Given Topic  for posting a blog
 			create atmost 4 to 5 headings

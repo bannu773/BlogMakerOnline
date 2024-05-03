@@ -166,7 +166,6 @@ animation: loader 4s infinite linear;
   }
   
   li {
-  
     padding: 5px 30px;
     border-radius: 5px;
 
@@ -175,4 +174,13 @@ animation: loader 4s infinite linear;
   }
   
   
-  
+  .outline_card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    background-color: rgb(58, 58, 58);
+    border-radius: 10px;
+    position: relative;
+    cursor: pointer;
+  }

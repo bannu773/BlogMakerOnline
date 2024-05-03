@@ -4,7 +4,7 @@ import outline from './outline';
 
 const store = configureStore({
   reducer: {
-    ouline: outline,
+    outline: outline,
     // Add other reducers here if needed
   },
 });

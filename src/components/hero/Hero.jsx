@@ -43,7 +43,7 @@ const Hero = () => {
       const parsedData = JSON.parse(cleanData);
       dispatch(addOutline(parsedData));
       return (
-        <Typist cursor={{ show: false }} avgTypingDelay={10} onTypingDone={() => navigate('/blogpost')}  >
+        <Typist cursor={{ show: false }} avgTypingDelay={40} onTypingDone={() => navigate('/blogpost')}  >
           {
             Object.keys(parsedData).filter(key => key.startsWith('heading')).map((key) => {
               const subheadingsKey = `subheadings_${key.split('_')[1]}`;
