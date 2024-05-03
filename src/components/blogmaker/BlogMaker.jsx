@@ -2,6 +2,10 @@ import React, { useContext, useEffect, useState } from 'react';
 import '../main/main.css';
 import { useSelector } from 'react-redux';
 import { Context } from "../../context/Context";
+import Typist from 'react-typist';
+import 'react-typist/dist/Typist.css';
+import HtmlToReact from 'html-to-react';
+
 const BlogMaker = () => {
     const {
         onSent,
@@ -12,52 +16,27 @@ const BlogMaker = () => {
         input,
     } = useContext(Context);
 
-    const outline = useSelector(state => state.outline);
-    const [responses, setResponses] = useState({
-        "heading_1": "Introduction to AI Tools",
-        "subheadings_1": [
-            "Definition and types of AI tools",
-            "Benefits of using AI tools"
-        ],
-        "heading_2": "Types of AI Tools",
-        "subheadings_2": [
-            "Natural Language Processing (NLP)",
-            "Machine Learning (ML)",
-            "Computer Vision",
-            "Robotics"
-        ],
-        "heading_3": "Applications of AI Tools",
-        "subheadings_3": [
-            "Healthcare",
-            "Finance",
-            "Manufacturing",
-            "Customer service"
-        ],
-        "heading_4": "Challenges and Future of AI Tools",
-        "subheadings_4": [
-            "Ethical concerns",
-            "Bias in AI",
-            "Job displacement",
-            "Advancements in AI technology"
-        ]
-    });
-
+    const outline = useSelector(state => state.outline.outline);
     const [allResponses, setAllResponses] = useState([]);
+    const htmlToReactParser = new HtmlToReact.Parser();
 
-    console.log(responses);
+    const renderJsonData = (data) => {
+        const regex = /```html\s*(.*?)```/gs;
+        const matches = data.match(regex);
+        const cleanData = matches && matches.length > 0 ? matches[0].replace(/```html\s*|```/gs, '') : '';
+        return cleanData;
+    }
 
     useEffect(() => {
-        const headingsCount = Object.keys(responses).filter(key => key.startsWith("heading")).length; console.log(headingsCount);
-        sendHeading(responses, 1,headingsCount );
+        const headingsCount = Object.keys(outline).filter(key => key.startsWith("heading")).length;
+        sendHeading(outline, 1, headingsCount);
     }, []);
-    
-    console.log(allResponses);
+
     const sendHeading = (outline, n, totalHeadings) => {
-        console.log(totalHeadings);
         const heading = outline[`heading_${n}`];
 
         if (heading) {
-            onSent(heading)
+            onSent(heading, outline)
                 .then((response) => {
                     setAllResponses(prevAllResponses => [...prevAllResponses, response]);
                     const subheadings = outline[`subheadings_${n}`];
@@ -72,7 +51,7 @@ const BlogMaker = () => {
 
     const sendSubheadings = (outline, n, subheadings, index, totalHeadings) => {
         const subheading = subheadings[index];
-        onSent(subheading)
+        onSent(subheading, outline)
             .then((response) => {
                 setAllResponses(prevAllResponses => [...prevAllResponses, response]);
                 if (index + 1 < subheadings.length) {
@@ -83,11 +62,8 @@ const BlogMaker = () => {
             });
     };
 
-
-
-
     return (
-        <div className='main' style={{ paddingTop: "70px" }}>
+        <div className='main container' style={{ paddingTop: "70px" }}>
             <div className="main-container">
                 <div className="greet">
                     <p>
@@ -96,9 +72,14 @@ const BlogMaker = () => {
                 </div>
                 <div className='outline_card'>
                     {
-                        allResponses.map((response, index) => (
-                            <p key={index}>{response}</p>
-                        ))
+                        allResponses.map((response, index) => {
+                            const reactElement = htmlToReactParser.parse(renderJsonData(response));
+                            return (
+                                <Typist key={index} avgTypingDelay={10}>
+                                    <p>{reactElement}</p>
+                                </Typist>
+                            );
+                        })
                     }
                 </div>
             </div>
@@ -107,5 +88,3 @@ const BlogMaker = () => {
 }
 
 export default BlogMaker;
-
-

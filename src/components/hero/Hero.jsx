@@ -8,9 +8,8 @@ import '../../components/main/main.css'
 import { Context } from "../../context/Context";
 import Typist from 'react-typist';
 import 'react-typist/dist/Typist.css';
-import { Chip } from '@mui/material';
+import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
 import { useNavigate } from 'react-router-dom';
-
 import { addOutline } from "../../store/outline";
 import { useDispatch } from "react-redux";
 
@@ -43,7 +42,7 @@ const Hero = () => {
       const parsedData = JSON.parse(cleanData);
       dispatch(addOutline(parsedData));
       return (
-        <Typist cursor={{ show: false }} avgTypingDelay={40} onTypingDone={() => navigate('/blogpost')}  >
+        <Typist cursor={{ show: false }} avgTypingDelay={50} onTypingDone={() => setTimeout(() => navigate('/blogpost'), 2000)}  >
           {
             Object.keys(parsedData).filter(key => key.startsWith('heading')).map((key) => {
               const subheadingsKey = `subheadings_${key.split('_')[1]}`;
@@ -55,16 +54,7 @@ const Hero = () => {
                   <ul>
                     {parsedData[subheadingsKey].map((sub, index) => (
                       <li  key={index}>
-                        <Chip color="info" sx={{
-                          height: 'auto',
-                          '& .MuiChip-label': {
-                            display: 'block',
-                            whiteSpace: 'normal',
-                            fontSize: '1.3rem',
-                            padding: '0.5rem',
-                            color: 'white',
-                          },
-                        }} label={sub} variant="outlined" />
+                         <KeyboardDoubleArrowRightIcon /> {sub}
                       </li>
                     ))}
                   </ul>

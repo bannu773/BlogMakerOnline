@@ -23,20 +23,44 @@ const ContextProvider = (props) => {
 		setShowResults(false)
 	}
 
-	const onSent = async (argu) => {
+	const onSent = async (argu,outline) => {
 		setResultData("");
 		setLoading(true);
 		setShowResults(true);
-		console.log(argu);
+		console.log(argu,outline);
 		let response;
-		if(argu !== "" && argu !== undefined) {
-			console.log(input, "input");
-			response = await runChat(argu);
+		if (argu !== "" && argu !== undefined) {
+			response = await runChat(`this is the outline you are going to generate ${outline} Make a HTML Page using this specific Heading ${argu} you can use the below stylings you are 
+			.heading1 {
+				font-size: 3.5em;
+				margin-top: 0;
+			  }
+			.heading2 {
+				font-size: 2.9em;
+				margin-bottom: 0;
+				line-height: 1.9em;
+			  }
+			  .para {
+				margin: 0 0 1em 0;
+				line-height: 1.8em;
+			  }
+			  
+			  .container {
+				max-width: 800px;
+				margin: 0 auto;
+				padding: 2em;
+			  }
+			 
+			  generate a html page use the above classnames dont inlcude any css in the html file using only classname
+			  start the HTML code from section
+			  always wrap with the \`\`\`html ...  \`\`\`
+			  if it needs any Extra Styling you can use the inline css
+
+			  `);
 			setRecentPrompt(argu);
 			return response;
 		}
-		else if(input !== "" && input !== undefined) {
-			console.log(input, "input");
+		else if (input !== "" && input !== undefined) {
 			response = await runChat(input);
 			setRecentPrompt(input);
 		}
@@ -59,9 +83,12 @@ const ContextProvider = (props) => {
 			 ]
 			 }
 			 \`\`\`
+			
+			
 			 
 			don't use any html tags 
 			
+
 			Double check the json file before submitting 
 			use the above format only
 		
@@ -114,7 +141,7 @@ const ContextProvider = (props) => {
 		loading,
 		resultData,
 		newChat,
-		prompt, 
+		prompt,
 		setPrompt
 	};
 
