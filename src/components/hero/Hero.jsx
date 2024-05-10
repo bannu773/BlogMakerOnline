@@ -53,8 +53,8 @@ const Hero = () => {
                   <h2>{parsedData[key]}</h2>
                   <ul>
                     {parsedData[subheadingsKey].map((sub, index) => (
-                      <li  key={index}>
-                         <KeyboardDoubleArrowRightIcon /> {sub}
+                      <li key={index}>
+                        <KeyboardDoubleArrowRightIcon /> {sub}
                       </li>
                     ))}
                   </ul>
@@ -72,71 +72,73 @@ const Hero = () => {
 
 
   return (
-    <motion.div variants={slideIn('right', 'tween', 0.2, 1)} initial="hidden" whileInView="show" className="">
+    <div className="bg-img ">
+      <motion.div variants={slideIn('right', 'tween', 0.2, 1)} initial="hidden" whileInView="show" className="">
 
-      <section className={`relative w-full h-screen mx-auto bg-img `}>
-        <div
-          className={`absolute  top-[120px] mx-auto ${styles.paddingX} flex flex-row items-start gap-5`}
-          style={{ zIndex: 0, pointerEvents: "none" }}
-        >
-          <marquee scrollamount="40" >
-            <h1 className={`${styles.heroHeadText} mt-8 opacity-20   glow`} style={{ fontFamily: "Outfit", fontSize: "600px" }}>
-              BUILDBLOG
-            </h1>
-          </marquee>
-        </div>
-        <EarthCanvas />
-        <div className="w-full flex justify-center ">
-          <div className="main-bottom bottom-20  ">
-
-            {
-              resultData !== "" || loading ? (<div className="result-data bg-indigo-900 bg-opacity-90 rounded-lg pt-10 pb-20 pl-10 pr-10">
-                {/* <img src={assets.gemini_icon} alt="" /> */}
-                {loading ? (
-                  <div className="loader">
-                    <hr />
-                    <hr />
-                    <hr />
-                    <hr />
-                  </div>
-                ) : (
-                  <div>{renderJsonData(resultData)}</div>
-                )}
-              </div>) : (
-                null
-              )
-
-            }
+        <section className={`relative w-full h-screen mx-auto `}>
+          <div
+            className={`absolute  top-[120px] mx-auto ${styles.paddingX} flex flex-row items-start gap-5`}
+            style={{ zIndex: 0, pointerEvents: "none" }}
+          >
+            <marquee scrollamount="40" >
+              <h1 className={`${styles.heroHeadText} mt-8 opacity-20   glow`} style={{ fontFamily: "Outfit", fontSize: "600px" }}>
+                BUILDBLOG
+              </h1>
+            </marquee>
           </div>
-          <div className="main-bottom bottom-10 ">
-            <div className="search-box">
-              <textarea
-                onChange={(e) => {
-                  setPrompt(e.target.value);
-                }}
-                value={prompt}
-                placeholder="Enter the Prompt Here"
-              />
-              <div>
-                {/* <img src={assets.gallery_icon} alt="" />
-                <img src={assets.mic_icon} alt="" /> */}
-                <img
-                  src={assets.dark_send_icon}
-                  alt=""
-                  onClick={() => {
+          <EarthCanvas />
+          <div className="w-full flex justify-center ">
+            <div className="main-bottom bottom-20  ">
 
-                    onSent();
+              {
+                resultData !== "" || loading ? (<div className="result-data bg-indigo-900 bg-opacity-90 rounded-lg pt-10 pb-20 pl-10 pr-10">
+                  {/* <img src={assets.gemini_icon} alt="" /> */}
+                  {loading ? (
+                    <div className="loader">
+                      <hr />
+                      <hr />
+                      <hr />
+                      <hr />
+                    </div>
+                  ) : (
+                    <div>{renderJsonData(resultData)}</div>
+                  )}
+                </div>) : (
+                  null
+                )
+
+              }
+            </div>
+            <div className="main-bottom bottom-10 ">
+              <div className="search-box">
+                <textarea
+                  onChange={(e) => {
+                    setPrompt(e.target.value);
                   }}
+                  value={prompt}
+                  placeholder="Enter the Prompt Here"
                 />
+                <div>
+                  {/* <img src={assets.gallery_icon} alt="" />
+          <img src={assets.mic_icon} alt="" /> */}
+                  <img
+                    src={assets.dark_send_icon}
+                    alt=""
+                    onClick={() => {
+
+                      onSent();
+                    }}
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
 
 
-      </section>
-    </motion.div>
+        </section>
+      </motion.div>
+    </div>
   );
 };
 

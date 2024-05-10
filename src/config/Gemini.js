@@ -10,7 +10,7 @@ import {
 } from "@google/generative-ai";
 
 const MODEL_NAME = "gemini-1.0-pro";
-const API_KEY = "AIzaSyAsahyXnw17arfV-uIdnzM8AsgnZAC9bF4";
+const API_KEY = "AIzaSyAi7a6SWL1W_PlZT6VCxeC0u5tNK-J3dcc";
 
 async function runChat(prompt) {
 

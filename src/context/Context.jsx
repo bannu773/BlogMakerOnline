@@ -30,16 +30,20 @@ const ContextProvider = (props) => {
 		console.log(argu,outline);
 		let response;
 		if (argu !== "" && argu !== undefined) {
-			response = await runChat(`this is the outline you are going to generate ${outline} Make a HTML Page using this specific Heading ${argu} you can use the below stylings you are 
+			response = await runChat(`This is the Topic ${prompt} this is the outline you are going to generate ${outline} Make a HTML Page using this specific Heading ${argu} you can use the below stylings you are 
 			.heading1 {
 				font-size: 3.5em;
 				margin-top: 0;
+				line-height: 1.3em;
 			  }
-			.heading2 {
-				font-size: 2.9em;
+			  
+			  .heading2 {
+				font-size: 1.6em;
 				margin-bottom: 0;
-				line-height: 1.9em;
+				line-height: 1.4em;
 			  }
+			  
+			  
 			  .para {
 				margin: 0 0 1em 0;
 				line-height: 1.8em;
@@ -54,8 +58,10 @@ const ContextProvider = (props) => {
 			  generate a html page use the above classnames dont inlcude any css in the html file using only classname
 			  start the HTML code from section
 			  always wrap with the \`\`\`html ...  \`\`\`
+			  make sure that your data should not be in the given outline
 			  if it needs any Extra Styling you can use the inline css
-
+			  double check the response before submitting if it follows the above format and instructions
+		
 			  `);
 			setRecentPrompt(argu);
 			return response;
@@ -67,7 +73,7 @@ const ContextProvider = (props) => {
 		else if (prompt !== undefined) {
 
 			response = await runChat(`Create a Outline for the Given Topic  for posting a blog
-			create atmost 4 to 5 headings
+			create atmost 1 to 2 headings
 			Topic : '''${prompt}'''
 			return that in the form of json 
 			the json will contain 
